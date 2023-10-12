@@ -8,6 +8,7 @@ from rest_framework.response import Response
 from rest_framework import serializers
 from .serializers import ReservationsSerializer, MenuSerializer, ImageSerializer, FoodCategoriesSerializer
 from .permissions import IsStaffEditor
+from rest_framework_simplejwt import authentication as jwtauthentication
 
 # Create your views here.
 class Reservationviews(generics.ListCreateAPIView):
@@ -31,19 +32,32 @@ class ReservationDetailViews(generics.RetrieveDestroyAPIView):
 class MenuListCreatViews(generics.ListCreateAPIView):
     queryset = Menu.objects.all()
     serializer_class = MenuSerializer
-    authentication_classes = [authentication.SessionAuthentication]
+    authentication_classes = [authentication.SessionAuthentication,
+                              jwtauthentication.JWTAuthentication
+                              ]
     permission_classes = [IsStaffEditor]
 
 class MenuRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Menu.objects.all()
     serializer_class = MenuSerializer
-    authentication_classes = [authentication.SessionAuthentication]
+    authentication_classes = [authentication.SessionAuthentication,
+                              jwtauthentication.JWTAuthentication
+                              ]
     permission_classes = [IsStaffEditor]
     # lookup_field = 'menu'
 
 class ImageViews(generics.ListCreateAPIView):
     queryset = Image.objects.all()
     serializer_class = ImageSerializer
-    authentication_classes = [authentication.SessionAuthentication]
+    authentication_classes = [authentication.SessionAuthentication,
+                              jwtauthentication.JWTAuthentication
+                              ]
     permission_classes = [IsStaffEditor]
     
+class ImageDetailViews(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Image.objects.all()
+    serializer_class = ImageSerializer
+    authentication_classes = [authentication.SessionAuthentication,
+                              jwtauthentication.JWTAuthentication
+                              ]
+    permission_classes = [IsStaffEditor]

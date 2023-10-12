@@ -23,5 +23,8 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('restaurant/', include("restaurant.urls")),
-    path('api-auth/', include('rest_framework.urls'))
+    path('api-auth/', include('rest_framework.urls')),
+    path('djoser-auth/', include('djoser.urls')),
+    path('djoser-jwtauth/', include('djoser.urls.jwt')),
+    path('user/', include("users.urls"))
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
