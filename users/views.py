@@ -14,7 +14,8 @@ class userDetailsView(generics.RetrieveUpdateDestroyAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializers
     lookup_field ='username'
-    authentication_classes = [authentication.SessionAuthentication,
-                              jwtauthentication.JWTAuthentication
+    authentication_classes = [
+        jwtauthentication.JWTAuthentication,
+        authentication.SessionAuthentication,                
                               ]
     permission_classes = [IsStaffEditor]

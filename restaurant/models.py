@@ -2,7 +2,7 @@
 from django.db import models
 import random 
 import string
-from datetime import datetime
+import datetime
 
 
 # Create your models here.
@@ -11,7 +11,7 @@ from datetime import datetime
 class Reservations(models.Model):
     name = models.CharField(max_length=200)
     guest_number = models.IntegerField(default=0)
-    date = models.DateField(default=datetime.now)
+    date = models.DateField(default=datetime.datetime.now())
     time = models.TimeField()
     ticket_number = models.CharField(unique=True, editable=False, max_length=9)
 
@@ -24,8 +24,19 @@ class Reservations(models.Model):
     #                 break
     #         self.ticket_number = ticket_number
     #     super(Reservations, self).save(*args, **kwargs)
-    
-  
+    @property
+    def expiration(self):
+        date = datetime.datetime.combine(self.date, datetime.time.min)  # Combine date with midnight
+        expiration_time = datetime.timedelta(minutes=1)
+        current_time = datetime.datetime.now()
+        print(date)
+        print(expiration_time)
+        print(current_time)
+        if date <= current_time - expiration_time :
+            return True
+        else:
+            return False
+        
         
 
     def __str__(self):
