@@ -96,3 +96,21 @@ class ImageDetailViews(generics.RetrieveUpdateDestroyAPIView):
                               
                               ]
     permission_classes = [IsStaffEditor]
+
+class FoodCategoryViews(generics.ListCreateAPIView):
+    queryset = FoodCategories.objects.all()
+    serializer_class = FoodCategoriesSerializer
+    permission_classes = [IsStaffEditor]
+    authentication_classes = [
+        jwtauthentication.JWTAuthentication,
+        authentication.SessionAuthentication,
+    ]
+
+class FoodCategoriesDetailViews(generics.RetrieveUpdateDestroyAPIView):
+    queryset = FoodCategories.objects.all()
+    serializer_class = FoodCategoriesSerializer
+    permission_classes = [IsStaffEditor]
+    authentication_classes = [
+        jwtauthentication.JWTAuthentication,
+        authentication.SessionAuthentication,
+    ]
