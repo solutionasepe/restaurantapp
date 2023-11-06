@@ -69,7 +69,7 @@ ROOT_URLCONF = 'backend.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, "templates")],
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -135,6 +135,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 MEDIA_URL = 'media/'
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -203,9 +204,9 @@ EMAIL_HOST_PASSWORD = "isjp wbax ajyo lzjg"
 DEFAULT_FROM_EMAIL = "solutionbackend1@gmail.com"
 
 DJOSER = {
-    'PASSWORD_RESET_CONFIRM_URL': 'www.frontend.com/reset/confirm/{uid}/{token}',
+    'PASSWORD_RESET_CONFIRM_URL': 'www.frontend.com/reset/confirm?Uid={uid}&Token={token}',
     'USERNAME_RESET_CONFIRM_URL': 'www.frontend.com/reset/confirm/{uid}/{token}',
-    'ACTIVATION_URL': '#/activate/{uid}/{token}',
+    'ACTIVATION_URL': 'djoser-auth/users/activation?Uid={uid}&Token={token}',
     'SEND_ACTIVATION_EMAIL': True,
     'SERIALIZERS': {},
 }
