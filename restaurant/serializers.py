@@ -2,6 +2,10 @@ from rest_framework import serializers
 from .models import *
 import random 
 import string
+import smtplib
+my_email = "solutionbackend1@gmail.com"
+password = "isjp wbax ajyo lzjg"
+
 class ReservationsSerializer(serializers.ModelSerializer):
     ticket_number = serializers.CharField(read_only=True)
 
@@ -18,6 +22,15 @@ class ReservationsSerializer(serializers.ModelSerializer):
 
         validated_data['ticket_number'] = ticket_number
         reservation = Reservations.objects.create(**validated_data)
+
+        with smtplib.SMTP_SSL("smtp.gmail.com", 465) as connection:
+            connection.ehlo()
+            connection.login(user=my_email, password=password)
+            connection.sendmail(
+                from_addr=my_email, to_addrs=validated_data['email'],
+                msg="Subject:weldone\n\n Congratuations you have booked a table with ticket number {}".format(ticket_number)
+            )
+
         return reservation
 
 

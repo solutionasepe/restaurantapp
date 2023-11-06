@@ -13,6 +13,7 @@ class Reservations(models.Model):
     guest_number = models.IntegerField(default=0)
     date = models.DateField(default=datetime.datetime.now())
     time = models.TimeField()
+    email = models.EmailField(max_length=200, default="example@anymail.com")
     ticket_number = models.CharField(unique=True, editable=False, max_length=9)
 
     #generating a random ticket number to be saved into the database

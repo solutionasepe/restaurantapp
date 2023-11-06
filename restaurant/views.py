@@ -12,6 +12,10 @@ from rest_framework import serializers
 from .serializers import ReservationsSerializer, MenuSerializer, ImageSerializer, FoodCategoriesSerializer
 from .permissions import IsStaffEditor
 from rest_framework_simplejwt import authentication as jwtauthentication
+import smtplib
+
+my_email = "solutionbackend1@gmail.com"
+password = "isjp wbax ajyo lzjg"
 
 # Create your views here.
 class Reservationviews(generics.ListCreateAPIView):
@@ -22,8 +26,7 @@ class Reservationviews(generics.ListCreateAPIView):
     # lookup_field = 'ticket_number'
     def perform_create(self, serializer):
         date = serializer.validated_data.get('date')
-        print(date)
-        print(datetime.date.today())
+
         if date < datetime.date.today():
             raise serializers.ValidationError({'error':"Invalid date - date in the past"})
         serializer.save(date=date)

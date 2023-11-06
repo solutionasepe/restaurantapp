@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 from datetime import timedelta
+import os 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -68,7 +69,7 @@ ROOT_URLCONF = 'backend.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, "templates")],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -191,3 +192,20 @@ REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
 }
 CORS_ORIGIN_ALLOW_ALL = True
+
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_USE_SSL = True
+# EMAIL_USE_TLS = True
+EMAIL_PORT = 465
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = "solutionbackend1@gmail.com"
+EMAIL_HOST_PASSWORD = "isjp wbax ajyo lzjg"
+DEFAULT_FROM_EMAIL = "solutionbackend1@gmail.com"
+
+DJOSER = {
+    'PASSWORD_RESET_CONFIRM_URL': 'www.frontend.com/reset/confirm/{uid}/{token}',
+    'USERNAME_RESET_CONFIRM_URL': 'www.frontend.com/reset/confirm/{uid}/{token}',
+    'ACTIVATION_URL': '#/activate/{uid}/{token}',
+    'SEND_ACTIVATION_EMAIL': True,
+    'SERIALIZERS': {},
+}
