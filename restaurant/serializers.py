@@ -3,8 +3,10 @@ from .models import *
 import random 
 import string
 import smtplib
-my_email = "solutionbackend1@gmail.com"
-password = "isjp wbax ajyo lzjg"
+from decouple import config
+from django.db import transaction
+my_email = config("EMAIL_HOST_USER")
+password = config("EMAIL_HOST_PASSWORD")
 
 class ReservationsSerializer(serializers.ModelSerializer):
     ticket_number = serializers.CharField(read_only=True)
@@ -14,6 +16,7 @@ class ReservationsSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
     def create(self, validated_data):
+
         while True:
             ticket_number = ''.join(random.choices(string.ascii_uppercase + string.digits, k=8))
 
@@ -21,16 +24,21 @@ class ReservationsSerializer(serializers.ModelSerializer):
                 break
 
         validated_data['ticket_number'] = ticket_number
-        reservation = Reservations.objects.create(**validated_data)
 
-        with smtplib.SMTP_SSL("smtp.gmail.com", 465) as connection:
-            connection.ehlo()
-            connection.login(user=my_email, password=password)
-            connection.sendmail(
-                from_addr=my_email, to_addrs=validated_data['email'],
-                msg="Subject:weldone\n\n Congratuations you have booked a table with ticket number {}".format(ticket_number)
-            )
+        try:
+            with transaction.atomic():
+                reservation = Reservations.objects.create(**validated_data)
 
+                with smtplib.SMTP_SSL("smtp.gmail.com", 465) as connection:
+                    connection.ehlo()
+                    connection.login(user=my_email, password=password)
+                    connection.sendmail(
+                        from_addr=my_email, to_addrs=validated_data['email'],
+                        msg="Subject:weldone\n\n Congratuations you have booked a table with ticket number: {}".format(ticket_number)
+                    )
+        except Exception:
+            reservation.delete()
+            
         return reservation
 
 
