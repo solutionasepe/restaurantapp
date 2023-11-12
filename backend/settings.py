@@ -17,6 +17,9 @@ import os
 from decouple import config
 import dj_database_url
 
+config_path = os.path.join(BASE_DIR, '.env')
+config.read(config_path)
+
 # env = environ.Env()
 # environ.Env.read_env()
 
