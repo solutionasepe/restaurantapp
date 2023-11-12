@@ -14,7 +14,7 @@ from pathlib import Path
 from datetime import timedelta
 import os 
 # import environ
-from decouple import config, Csv
+from decouple import config
 import dj_database_url
 
 
@@ -37,7 +37,7 @@ SECRET_KEY = config('SECRET_KEY')
 # DEBUG = config('DEBUG', default=False, cast=bool)
 DEBUG = False
 
-ALLOWED_HOSTS = config('ALLOWED_HOST', default='*', cast=Csv())
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
