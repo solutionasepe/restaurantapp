@@ -14,7 +14,7 @@ from pathlib import Path
 from datetime import timedelta
 import os 
 # import environ
-from decouple import config
+from decouple import config, Csv
 import dj_database_url
 
 
@@ -24,6 +24,7 @@ import dj_database_url
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+env_path = "C:/Users/USER/Restaurant/restaurantapp/.env"
 
 
 # Quick-start development settings - unsuitable for production
@@ -36,7 +37,7 @@ SECRET_KEY = config('SECRET_KEY')
 # DEBUG = config('DEBUG', default=False, cast=bool)
 DEBUG = False
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = config('ALLOWED_HOST', default='*', cast=Csv())
 
 
 # Application definition
