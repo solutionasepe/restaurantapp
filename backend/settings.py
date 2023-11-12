@@ -14,7 +14,7 @@ from pathlib import Path
 from datetime import timedelta
 import os 
 # import environ
-from decouple import Config, Csv
+from decouple import config
 import dj_database_url
 
 
@@ -24,7 +24,7 @@ import dj_database_url
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-config = Config(os.path.join(os.path.dirname(os.path.abspath(__file__)), '.env'))
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -33,7 +33,8 @@ config = Config(os.path.join(os.path.dirname(os.path.abspath(__file__)), '.env')
 SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG', default=False, cast=bool)
+# DEBUG = config('DEBUG', default=False, cast=bool)
+DEBUG = False
 
 ALLOWED_HOSTS = ["*"]
 
@@ -107,21 +108,21 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 #     }
 # }
 
-if DEBUG:
-    DATABASES = {
-        "default":{
-            'ENGINE' : 'django.db.backends.postgresql_psycopg2',
-            'NAME': config('DATABASE_NAME'),
-            'USER': config('DATABASE_USER'),
-            'PASSWORD': config('DATABASE_PASSWORD'),
-            'HOST': 'localhost',
-            'PORT': '5432',
-        }
-    }
-else:
-    DATABASES = {
-        'default': dj_database_url.parse(config('DATABASE'))
-    }
+# if DEBUG:
+#     DATABASES = {
+#         "default":{
+#             'ENGINE' : 'django.db.backends.postgresql_psycopg2',
+#             'NAME': config('DATABASE_NAME'),
+#             'USER': config('DATABASE_USER'),
+#             'PASSWORD': config('DATABASE_PASSWORD'),
+#             'HOST': 'localhost',
+#             'PORT': '5432',
+#         }
+#     }
+# else:
+DATABASES = {
+    'default': dj_database_url.parse(config('DATABASE'))
+}
 
 
 
