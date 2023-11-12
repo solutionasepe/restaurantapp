@@ -13,18 +13,18 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 from datetime import timedelta
 import os
-# import environ
-from decouple import config
+import environ
+# from decouple import config
 import dj_database_url
 
 
-# env = environ.Env()
-# environ.Env.read_env()
+env = environ.Env()
+environ.Env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-env_path = "C:/Users/USER/Restaurant/restaurantapp/.env"
+
 # config = AutoConfig()
 
 
@@ -32,7 +32,7 @@ env_path = "C:/Users/USER/Restaurant/restaurantapp/.env"
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config('SECRET_KEY')
+SECRET_KEY = env("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = config('DEBUG', default=False, cast=bool)
@@ -123,7 +123,7 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 #     }
 # else:
 DATABASES = {
-    'default': dj_database_url.parse(config('DATABASE'))
+    'default': dj_database_url.parse(env('DATABASE'))
 }
 
 
@@ -227,11 +227,11 @@ CORS_ORIGIN_ALLOW_ALL = True
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_USE_SSL = True
 # EMAIL_USE_TLS = True
-EMAIL_PORT = config('EMAIL_PORT')
-EMAIL_HOST = config('EMAIL_HOST')
-EMAIL_HOST_USER =config('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
-DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL')
+EMAIL_PORT = env('EMAIL_PORT')
+EMAIL_HOST = env('EMAIL_HOST')
+EMAIL_HOST_USER =env('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
+DEFAULT_FROM_EMAIL = env('DEFAULT_FROM_EMAIL')
 
 DJOSER = {
     'PASSWORD_RESET_CONFIRM_URL': 'www.frontend.com/reset/confirm?Uid={uid}&Token={token}',
