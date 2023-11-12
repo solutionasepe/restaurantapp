@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 from datetime import timedelta
-import os 
+import os
 # import environ
 from decouple import config
 import dj_database_url
@@ -25,6 +25,7 @@ import dj_database_url
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 env_path = "C:/Users/USER/Restaurant/restaurantapp/.env"
+# config = AutoConfig()
 
 
 # Quick-start development settings - unsuitable for production
@@ -226,11 +227,11 @@ CORS_ORIGIN_ALLOW_ALL = True
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_USE_SSL = True
 # EMAIL_USE_TLS = True
-EMAIL_PORT = config("EMAIL_PORT")
-EMAIL_HOST = config("EMAIL_HOST")
-EMAIL_HOST_USER = config("EMAIL_HOST_USER")
-EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD")
-DEFAULT_FROM_EMAIL = config("DEFAULT_FROM_EMAIL")
+EMAIL_PORT = config('EMAIL_PORT')
+EMAIL_HOST = config('EMAIL_HOST')
+EMAIL_HOST_USER =config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL')
 
 DJOSER = {
     'PASSWORD_RESET_CONFIRM_URL': 'www.frontend.com/reset/confirm?Uid={uid}&Token={token}',
