@@ -4,7 +4,6 @@ import random
 import os
 import string
 import smtplib
-from decouple import config
 from django.db import transaction
 my_email = os.getenv('EMAIL_HOST_USER')
 password = os.getenv('EMAIL_HOST_PASSWORD')
