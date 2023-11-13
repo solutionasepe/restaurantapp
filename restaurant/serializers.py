@@ -1,12 +1,13 @@
 from rest_framework import serializers
 from .models import *
 import random 
+import os
 import string
 import smtplib
 from decouple import config
 from django.db import transaction
-my_email = config("EMAIL_HOST_USER")
-password = config("EMAIL_HOST_PASSWORD")
+my_email = os.getenv('EMAIL_HOST_USER')
+password = os.getenv('EMAIL_HOST_PASSWORD')
 
 class ReservationsSerializer(serializers.ModelSerializer):
     ticket_number = serializers.CharField(read_only=True)
