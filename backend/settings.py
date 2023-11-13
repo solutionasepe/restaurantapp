@@ -14,7 +14,6 @@ from pathlib import Path
 from datetime import timedelta
 import os
 import environ
-# from decouple import config
 import dj_database_url
 
 
